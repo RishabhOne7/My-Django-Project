@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section class="form-section">
+    <div class="form-container">
+        <form method ="POST">
+            {% csrf_token %}
+            <input type="text" name = "Task_Name" placeholder="{{task_e}}" value = "{{task_e}}" required>
+            <button type="submit">Edit Task</button>
+        </form>
+    </div>
+</section>
+
+{% endblock content %}

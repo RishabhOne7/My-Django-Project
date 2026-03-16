@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Navbar</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+<style>
+/* ================= GLOBAL RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+/* ================= NAVBAR ================= */
+nav{
+    background:#222;
+    padding:15px 30px;
+    position:relative;
+}
+
+.nav-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:#fff;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+}
+
+.nav-links li{
+    margin-left:25px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:#00bcd4;
+}
+
+/* Hamburger */
+.menu-toggle{
+    display:none;
+}
+
+.hamburger{
+    display:none;
+    font-size:26px;
+    color:white;
+    cursor:pointer;
+}
+
+/* Responsive Navbar */
+@media(max-width:768px){
+
+    .nav-links{
+        position:absolute;
+        top:60px;
+        left:0;
+        width:100%;
+        background:#333;
+        flex-direction:column;
+        text-align:center;
+        display:none;
+    }
+
+    .nav-links li{
+        margin:15px 0;
+    }
+
+    .menu-toggle:checked + .hamburger + .nav-links{
+        display:flex;
+    }
+
+    .hamburger{
+        display:block;
+    }
+}
+
+/* ================= TABLE ================= */
+
+.table-container{
+    max-width:1000px;
+    margin:50px auto;
+    overflow-x:auto;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff;
+}
+
+th, td{
+    padding:15px;
+    text-align:left;
+}
+
+tbody tr{
+    border-bottom:1px solid #eee;
+    transition:0.3s;
+}
+
+tbody tr:hover{
+    background:#f1f5ff;
+}
+
+.status{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.active{
+    background:#d4f8e8;
+    color:#0c8f5f;
+}
+
+.pending{
+    background:#fff4d6;
+    color:#c68b00;
+}
+
+.inactive{
+    background:#ffd6d6;
+    color:#c00000;
+}
+
+/* Responsive Table */
+@media(max-width:768px){
+
+    table, thead, tbody, th, td, tr{
+        display:block;
+    }
+
+    thead{
+        display:none;
+    }
+
+    tr{
+        margin-bottom:15px;
+        border-radius:10px;
+        background:#fff;
+        padding:15px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    td{
+        padding:10px 0;
+        display:flex;
+        justify-content:space-between;
+    }
+
+    td::before{
+        content:attr(data-label);
+        font-weight:bold;
+        color:#555;
+    }
+}
+
+/* ================= FORM ================= */
+
+.form-section{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.form-container{
+    width:100%;
+    max-width:400px;
+    padding:40px;
+    border-radius:20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.form-container input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    outline:none;
+    font-size:16px;
+    margin-bottom:20px;
+    background: rgba(255,255,255,0.2);
+    color:#fff;
+}
+
+.form-container input::placeholder{
+    color:#eee;
+}
+
+.form-container button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    background:#fff;
+    color:#333;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.form-container button:hover{
+    background:#000;
+    color:#fff;
+}
+
+@media (max-width:480px){
+    .form-container{
+        padding:25px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">MyLogo</div>
+
+        <input type="checkbox" id="menu" class="menu-toggle">
+        <label for="menu" class="hamburger">&#9776;</label>
+
+        <ul class="nav-links">
+            <li><a href="{% url "todo_tasks" %}">TODO TASKS</a></li>
+            <li><a href="{% url "home" %}">Home</a></li>
+            <li><a href="{% url "about" %}">About</a></li>
+            <li><a href="{% url "services" %}">Services</a></li>
+            <li><a href="{% url "contact" %}">Contact</a></li>
+            <li><a href="{% url "admin:index" %}">ADMIN</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% block content %}{% endblock content %}
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</html>

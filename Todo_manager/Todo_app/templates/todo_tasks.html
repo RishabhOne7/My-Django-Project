@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+{% if messages %}
+    {% for m in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ m }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<section class="form-section">
+    <div class="form-container">
+        <form method ="POST">
+            {% csrf_token %}
+            <input type="text" name = "Task_Name" placeholder="Enter your Task..." required>
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+</section>
+
+
+
+<div class="table-container">
+<table>
+    <thead>
+        <tr>
+            <th>Sr.no</th>
+            <th>ID | Task Name</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for i in all_tasks %}
+            {% if i.status == True  %}
+        <tr>
+            
+            <td data-label="Name">{{forloop.counter}}</td>
+            
+            <td data-label="Name">{{i.id}} | {{i.Task_Name}}</td>
+            
+            <td data-label="Status"><span class="status active">{{i.status}}</span></td>
+            <td data-label="Status"><a href="{% url "tasks_edit" i.id %}" >Edit</a></span></td>
+            
+            <td data-label="Status"> 
+                <a href="{% url "tasks_delet" i.id %}"> Delete </a>
+             </span></td>
+        </tr>
+            {% else %}
+            <tr>
+            <td data-label="Name">{{forloop.counter}}</td>
+            <td data-label="Name"> {{i.id}} | {{i.Task_Name}}</td>
+            
+            <td data-label="Status"><span class="status pending">{{i.status}}</span></td>
+            <td data-label="Status"><a href="{% url "tasks_edit" i.id %}">Edit</a></span></td>
+            
+            <td data-label="Status"> 
+                <a href="{% url "tasks_delet" i.id %}"> Delete </a>
+             </span></td>
+        </tr>
+            {% endif %}
+        {% endfor %}
+
+      </tbody>
+</table>
+</div>
+
+{% endblock content %}
